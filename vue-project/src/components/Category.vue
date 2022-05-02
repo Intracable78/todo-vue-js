@@ -1,8 +1,17 @@
 <script>
+import { useMainStore } from "../stores/store";
 import Task from "./Task.vue";
+import { computed } from "vue";
 export default {
   components: {
     Task,
+  },
+
+  setup() {
+    const main = useMainStore();
+    return {
+      darkModeState: computed(() => main.getTheme),
+    };
   },
   data() {
     return {
@@ -15,18 +24,22 @@ export default {
   },
   methods: {
     createCategory() {
-      //  console.log(this.categories);
       if (this.categories.name.length === 0) return;
       this.categories.push({
         id: this.categories.length + 1,
         name: this.categories.name,
       });
     },
+    updateDarkMode() {
+      const main = useMainStore();
+      main.changeDarkThemeState();
+    },
   },
 };
 </script>
 <template>
-  <div class="container">
+  <div class="container" v-bind:class="{ darkMode: darkModeState }">
+    <button @click="updateDarkMode()">DarkMode</button>
     <h2 class="text-center mt-5">My todo App</h2>
     <div class="d-flex">
       <input
@@ -46,4 +59,8 @@ export default {
 </template>
 
 <style>
+.darkMode {
+  background-color: black;
+  color: white;
+}
 </style>

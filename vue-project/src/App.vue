@@ -7,3 +7,4 @@ import Category from "./components/Category.vue";
     <Category />
   </main>
 </template>
+

@@ -40,9 +40,6 @@
           <button @click="updateStateTask(task.id)" class="btn btn-info">
             Change state
           </button>
-          <button @click="updatePriorityTask(task.id)" class="btn btn-warning">
-            Change priority
-          </button>
           <select
             aria-label="Default select example"
             @change="updatePriorityTask($event, task.id)"
