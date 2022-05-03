@@ -9,6 +9,7 @@ export default {
 
   setup() {
     const main = useMainStore();
+    console.log(main.getTheme);
     return {
       darkModeState: computed(() => main.getTheme),
     };
@@ -28,7 +29,11 @@ export default {
       this.categories.push({
         id: this.categories.length + 1,
         name: this.categories.name,
+        color: this.categories.color,
       });
+    },
+    updateEditorColor(color) {
+      this.categories.color = color;
     },
     updateDarkMode() {
       const main = useMainStore();
@@ -48,7 +53,12 @@ export default {
         placeholder="Create an category"
         class="form-control"
       />
-      <input type="color" id="head" name="head" value="#e66465" />
+      <input
+        type="color"
+        id="color"
+        name="color"
+        @change="updateEditorColor($event.target.value)"
+      />
       <label for="head">Head</label>
       <button class="btn btn-primary" @click="createCategory" type="submit">
         Create
